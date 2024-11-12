@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb
+    restart: always
+    image: mariadb
+    volumes: [mariadb:/var/lib/mysql]
+    env_file: [.env]
+    networks: [ookamonu]
+
+  nginx:
+    build: requirements/nginx/
+    container_name: nginx
+    image: nginx
+    ports: [443:443]
+    restart: always
+    env_file: [.env]
+    networks: [ookamonu]
+    depends_on: [wordpress]
+    volumes: [wordpress:/var/www/]
+
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    image: wordpress
+    restart: always
+    volumes: [wordpress:/var/www]
+    env_file: [.env]
+    networks: [ookamonu]
+    depends_on: [mariadb]
+
+volumes:
+  mariadb: { name: mariadb, driver: local, driver_opts: {type: none, o: bind, device: /home/Incept/data/mariadb_data} }
+  wordpress: { name: wordpress, driver: local, driver_opts: {type: none, o: bind, device: /home/Incept/data/wordpress_data} }
+
+networks: { ookamonu: { driver: bridge } }
+
+
+
+
+# Defines the Docker Compose configuration for the project, specifying the services, volumes, and networks.
+# Services:
+    # mariadb:
+        # Builds the MariaDB image from the specified Dockerfile in the requirements/mariadb/ directory.
+        # Sets the container name to 'mariadb' for easy identification.
+        # Configures the container to always restart, ensuring high availability.
+        # Uses the 'mariadb' image for the container.
+        # Mounts a named volume for persistent data storage at /var/lib/mysql.
+        # Loads environment variables from the .env file for database configuration.
+        # Connects the container to the 'ookamonu' network for inter-container communication.
+    # nginx:
+        # Builds the NGINX image from the specified Dockerfile in the requirements/nginx/ directory.
+        # Sets the container name to 'nginx' for easy identification.
+        # Uses the 'nginx' image for the container.
+        # Exposes port 443 for HTTPS traffic, enabling secure connections to the web server.
+        # Configures the container to always restart, ensuring high availability.
+        # Loads environment variables from the .env file for web server configuration.
+        # Connects the container to the 'ookamonu' network for inter-container communication.
+        # Specifies that the 'nginx' service depends on the 'wordpress' service, ensuring that WordPress is up and running before NGINX starts.
+        # Mounts a named volume for web files at /var/www/.
+    # wordpress:
+        # Builds the WordPress image from the specified Dockerfile in the requirements/wordpress/ directory.
+        # Sets the container name to 'wordpress' for easy identification.
+        # Uses the 'wordpress' image for the container.
+        # Configures the container to always restart, ensuring high availability.
+        # Mounts a named volume for WordPress files at /var/www.
+        # Loads environment variables from the .env file for WordPress configuration.
+        # Connects the container to the 'ookamonu' network for inter-container communication.
+        # Specifies that the 'wordpress' service depends on the 'mariadb' service, ensuring that the database is up and running before WordPress starts.
+# Volumes:
+    # mariadb: Defines a named volume for MariaDB data storage, with specific driver options for binding to a host directory.
+    # wordpress: Defines a named volume for WordPress data storage, with specific driver options for binding to a host directory.
+# Networks:
+    # ookamonu: Defines a bridge network for inter-container communication, allowing the services to communicate with each other.
