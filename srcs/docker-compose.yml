@@ -32,8 +32,8 @@ services:
     depends_on: [mariadb]
 
 volumes:
-  mariadb: { name: mariadb, driver: local, driver_opts: {type: none, o: bind, device: /home/Incept/data/mariadb_data} }
-  wordpress: { name: wordpress, driver: local, driver_opts: {type: none, o: bind, device: /home/Incept/data/wordpress_data} }
+  mariadb: { name: mariadb, driver: local, driver_opts: {type: none, o: bind, device: ~/ookamonu/data/mariadb_data} }
+  wordpress: { name: wordpress, driver: local, driver_opts: {type: none, o: bind, device: ~/ookamonu/data/wordpress_data} }
 
 networks: { ookamonu: { driver: bridge } }
 
