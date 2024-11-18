@@ -1,20 +1,24 @@
-all: create_dirs
-	sudo docker-compose -f srcs/docker-compose.yml up --build -d
-	@echo "127.0.0.1	ookamonu.42.fr" >> /etc/hosts
+all: mkdirs
+	docker-compose -f srcs/docker-compose.yml up --build -d
+	@sudo sh -c 'echo "127.0.0.1	ookamonu.42.fr" >> /etc/hosts'
 
-clean:
+down:
 	docker-compose -f srcs/docker-compose.yml down
 	docker image prune -a
 
-create_dirs:
-	mkdir -p ~/ookamonu/data/wordpress_data
-	mkdir -p ~/ookamonu/data/mariadb_data
+stop:
+	docker-compose -f ./srcs/docker-compose.yml stop
 
-fclean: clean
-	docker volume rm $$(docker volume ls -q)
-	rm -rf ~/data/wordpress_data/* ~/data/mariadb_data/*
+mkdirs:
+	sudo mkdir -p /home/ookamonu/data/wordpress_data /home/ookamonu/data/mariadb_data
 
-re: fclean all
+logs:
+	docker-compose -f ./srcs/docker-compose.yml logs
+
+clean: down
+	@sudo rm -rf ~/ookamonu/data/*
+
+re: clean all
 
 
 # all: Builds and starts the Docker Compose services in detached mode, using the specified docker-compose.yml file.
