@@ -9,7 +9,7 @@ services:
     depends_on: [ "wordpress-site" ]
     volumes: [ "wordvol:/var/www/html" ]
     networks: [ "inception" ]
-    restart: on-failure
+    restart: always
 
   mariadb-data:
     build: ./requirements/mariadb
@@ -18,7 +18,7 @@ services:
     env_file: [ ".env" ]
     volumes: [ "mariavol:/var/lib/mysql" ]
     networks: [ "inception" ]
-    restart: on-failure
+    restart: always
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "--silent" ]
       interval: 5s
@@ -36,7 +36,7 @@ services:
         condition: service_healthy
     volumes: [ "wordvol:/var/www/html" ]
     networks: [ "inception" ]
-    restart: on-failure
+    restart: always
 
 volumes:
   mariavol: { name: mariavol, driver_opts: { type: none, device: /home/ookamonu/data/mariadb_data, o: bind } }
