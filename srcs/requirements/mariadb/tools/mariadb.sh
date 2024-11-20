@@ -18,3 +18,10 @@ mysqladmin -u root -p"$DB_PASS" shutdown
 fi
 
 exec mysqld_safe --bind-address=0.0.0.0
+
+
+
+
+
+
+# mysql -u wpuser -p Inception -h mariadb-data
