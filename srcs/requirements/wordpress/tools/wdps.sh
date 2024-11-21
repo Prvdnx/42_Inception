@@ -20,6 +20,11 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
 	fi
 fi
 
+if ! grep -q "WP_REDIS_HOST" /var/www/html/wp-config.php; then
+    echo "define('WP_REDIS_HOST', 'redis');" >> /var/www/html/wp-config.php
+    echo "define('WP_REDIS_PORT', 6379);" >> /var/www/html/wp-config.php
+fi
+
 exec "$@"
 
 
