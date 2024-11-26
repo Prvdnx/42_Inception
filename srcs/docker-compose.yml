@@ -44,3 +44,21 @@ volumes:
 
 networks:
   inception: { name: inception }
+
+
+
+
+
+### this docker-compose.yml file defines the services for the application:
+# - nginx-42: builds and runs the nginx server container, exposing port 443 for HTTPS
+    # connections, and depends on the WordPress site service.
+
+# - mariadb-data: builds and runs the MariaDB server container, using environment
+    # variables from the .env file, and includes a health check.
+
+# - wordpress-site: builds and runs the WordPress site container, using environment
+    # variables from the .env file, and depends on the MariaDB service being healthy.
+
+# - defines volumes for persistent storage of MariaDB and WordPress data.
+
+# - defines a custom network for the services to communicate.
