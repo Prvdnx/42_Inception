@@ -26,7 +26,7 @@ exec mysqld_safe --bind-address=0.0.0.0
 
 ### to create a new database and user for WordPress. It checks if the database already exists, and if not, it
 # creates it and grants all privileges to the user. It also sets the root user password. Finally, it starts the
-# MySQL server in safe mode, which is necessary to bind it to the 0.0.0.0 address. This script is used to initialize
+# MySQL server in safe mode, which is necessary to bind it to the 0.0.0.0 address.
 
 # - checks if the database directory exists. If it doesn't, it means that the database hasn't been created yet.
 # - starts the MySQL server.

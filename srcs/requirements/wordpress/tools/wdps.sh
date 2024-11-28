@@ -28,7 +28,7 @@ exec "$@"
 
 
 ### this script initializes WordPress by downloading the core files, creating the configuration file,
-	# installing WordPress, and creating a user. Here's a breakdown:
+	# installing WordPress, and creating a user.
 
 # - waits for 5 seconds to ensure services are up.
 # - checks if the WordPress configuration file exists. If not, it proceeds with installation.
