@@ -39,6 +39,9 @@ exec "$@"
 # - executes any additional commands passed to the script.
 
 # docker exec -it wordpress-site bash
+# cat /var/www/html/wp-config.php
+
+
 
 ## to allow WP write to filesystem directly without requiring FTP credentials: add FS_METHOD to wp-config.php
 # if ! grep -q "FS_METHOD" /var/www/html/wp-config.php; then
